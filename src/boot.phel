@@ -1,3 +1,7 @@
-(ns hello-world\boot)
+(ns hello-world\boot
+  (:require phel\html :refer [html]))
 
-(println "Hello, World!")
+(println "Easy Hello, World!")
+
+(println
+  (html [:span @{:class "Fancy"} "Hello, World!"]))
