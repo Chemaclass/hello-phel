@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a756818f74565e2b8980356db9deb7e",
+    "content-hash": "c6ecb9073e510d66c4e2fb41a667af8c",
     "packages": [
         {
             "name": "phel/phel",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jenshaase/phel-lang.git",
-                "reference": "d4050359072a54339db67bb755dba2ce3e71855f"
+                "reference": "3c427e2f2d61470770329c4fabb7021acb780320"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenshaase/phel-lang/zipball/d4050359072a54339db67bb755dba2ce3e71855f",
-                "reference": "d4050359072a54339db67bb755dba2ce3e71855f",
+                "url": "https://api.github.com/repos/jenshaase/phel-lang/zipball/3c427e2f2d61470770329c4fabb7021acb780320",
+                "reference": "3c427e2f2d61470770329c4fabb7021acb780320",
                 "shasum": ""
             },
             "require": {
@@ -77,7 +77,7 @@
                 "issues": "https://github.com/jenshaase/phel-lang/issues",
                 "source": "https://github.com/jenshaase/phel-lang/tree/master"
             },
-            "time": "2021-01-04T21:15:23+00:00"
+            "time": "2021-01-08T15:40:10+00:00"
         },
         {
             "name": "phel/phel-composer-plugin",
@@ -148,7 +148,9 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-readline": "*"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
 }

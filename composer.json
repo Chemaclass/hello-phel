@@ -7,15 +7,13 @@
     }
   ],
   "require": {
+    "ext-readline": "*",
     "phel/phel": "dev-master"
-  },
-  "require-dev": {
-    "roave/security-advisories": "dev-master"
   },
   "extra": {
     "phel": {
       "loader": {
-        "hello-world\\": "src/"
+        "hello-phel\\": "src/"
       }
     }
   },
