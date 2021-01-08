@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jenshaase/phel-lang.git",
-                "reference": "3c427e2f2d61470770329c4fabb7021acb780320"
+                "reference": "573b256b6056be4e9a7fad1bc69ac56bb95c1e08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenshaase/phel-lang/zipball/3c427e2f2d61470770329c4fabb7021acb780320",
-                "reference": "3c427e2f2d61470770329c4fabb7021acb780320",
+                "url": "https://api.github.com/repos/jenshaase/phel-lang/zipball/573b256b6056be4e9a7fad1bc69ac56bb95c1e08",
+                "reference": "573b256b6056be4e9a7fad1bc69ac56bb95c1e08",
                 "shasum": ""
             },
             "require": {
@@ -77,7 +77,7 @@
                 "issues": "https://github.com/jenshaase/phel-lang/issues",
                 "source": "https://github.com/jenshaase/phel-lang/tree/master"
             },
-            "time": "2021-01-08T15:40:10+00:00"
+            "time": "2021-01-08T23:14:33+00:00"
         },
         {
             "name": "phel/phel-composer-plugin",

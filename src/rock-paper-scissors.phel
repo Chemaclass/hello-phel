@@ -1,0 +1,45 @@
+(ns hello-phel\rock-paper-scissors)
+
+(def player-1-wins 1)
+(def player-2-wins 2)
+(def tie 3)
+
+(def possibilities ["r" "p" "s"])
+
+(defn read-guess []
+  (println "Play your hand: (r)ock, (p)aper, (s)cissors")
+  (let [guess (php/readline)]
+    (if (get @{"r" true "p" true "s" true} guess) guess)))
+
+# Return 1 for player 1 wins, 2 for player 2 wins, and 0 for a tie
+(defn winner [@{"computer-guess" computer-guess "player-guess" player-guess}]
+  (let [guesses [computer-guess player-guess]]
+    (cond 
+      (= computer-guess player-guess) tie
+      (= guesses ["p" "r"]) player-1-wins
+      (= guesses ["r" "p"]) player-2-wins
+      (= guesses ["r" "s"]) player-1-wins
+      (= guesses ["s" "r"]) player-2-wins
+      (= guesses ["s" "p"]) player-1-wins
+      (= guesses ["p" "s"]) player-2-wins)))
+  
+(defn winner-result-text [winner]
+  (cond 
+    (= winner tie) "Game tied!"
+    (= winner player-1-wins) "Computer wins!"
+    (= winner player-2-wins) "Player wins!"))
+
+(defn play-hand []
+  (let [computer-guess (rand-nth possibilities)
+        player-guess   (read-guess)
+        winner         (winner @{"computer-guess" computer-guess "player-guess" player-guess})]
+  (println "The computer guessed: " computer-guess)
+  (println "You guessed: " player-guess)
+    (if (= player-guess nil)
+      (println "Your entry was invalid")
+      (println (winner-result-text winner))
+    )))
+
+(loop []
+  (play-hand)
+  (recur))
