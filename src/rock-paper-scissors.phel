@@ -1,44 +1,55 @@
 (ns hello-phel\rock-paper-scissors)
 
+(def rock "r")
+(def paper "p")
+(def scissors "s")
+(def possible-guesses [rock paper scissors])
+
 (def computer-wins 1)
 (def player-wins 2)
 (def tie 3)
 
-(def possible-guesses ["r" "p" "s"])
+(defn sanitize-guess-input
+  "Returns the first non-empty char from the input as lowercase"
+  [input]
+  (get (php/trim (php/strtolower input)) 0))
 
 (defn read-guess []
   (println "Play your hand: (r)ock, (p)aper, (s)cissors")
-  (let [guess (php/readline)]
+  (print "# ")
+  (let [guess (sanitize-guess-input (php/readline))]
     (if (php/in_array guess (to-php-array possible-guesses)) guess)))
 
-(defn winner [@{"computer-guess" computer-guess "player-guess" player-guess}]
+(defn calculate-winner [@{"computer-guess" computer-guess 
+                          "player-guess" player-guess}]
   (let [guesses [computer-guess player-guess]]
-    (cond 
+    (cond
       (= computer-guess player-guess) tie
-      (= guesses ["p" "r"]) computer-wins
-      (= guesses ["r" "p"]) player-wins
-      (= guesses ["r" "s"]) computer-wins
-      (= guesses ["s" "r"]) player-wins
-      (= guesses ["s" "p"]) computer-wins
-      (= guesses ["p" "s"]) player-wins)))
+      (= guesses [paper rock])        computer-wins
+      (= guesses [scissors paper])    computer-wins
+      (= guesses [rock scissors])     computer-wins
+      (= guesses [rock paper])        player-wins
+      (= guesses [paper scissors])    player-wins
+      (= guesses [scissors rock])     player-wins)))
   
 (defn winner-result-text [winner]
   (cond 
-    (= winner tie) "Game tied!"
+    (= winner tie)           "Game tied!"
     (= winner computer-wins) "Computer wins!"
-    (= winner player-wins) "Player wins!"))
+    (= winner player-wins)   "Player wins!"))
 
 (defn play-hand []
   (let [computer-guess (rand-nth possible-guesses)
         player-guess   (read-guess)
-        winner         (winner @{"computer-guess" computer-guess "player-guess" player-guess})]
-  (println "The computer guessed:" computer-guess)
-  (println "You guessed:" player-guess)
+        winner         (calculate-winner @{"computer-guess" computer-guess
+                                           "player-guess" player-guess})]
+    (println "The computer guessed:" computer-guess)
+    (println "You guessed:" player-guess)
     (if (= player-guess nil)
-      (println "Your entry was invalid")
-      (println (winner-result-text winner))
-    )))
+      (println "> Your entry was invalid")
+      (println ">" (winner-result-text winner)))))
 
 (loop []
   (play-hand)
+  (println)
   (recur))
