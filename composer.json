@@ -8,13 +8,20 @@
   ],
   "require": {
     "ext-readline": "*",
-    "phel/phel": "dev-master"
+    "phel/phel": "dev-master",
+    "symfony/var-dumper": "5.x-dev"
   },
   "extra": {
     "phel": {
       "loader": {
         "hello-phel\\": "src/"
-      }
+      },
+      "loader-dev": {
+        "hello-phel-tests\\": "tests/"
+      },
+      "tests": [
+          "tests/"
+      ]
     }
   },
   "minimum-stability": "dev"

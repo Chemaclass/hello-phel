@@ -1,3 +1,5 @@
+# Usage: vendor/bin/phel run src/rock-paper-scissors.phel play
+
 (ns hello-phel\rock-paper-scissors)
 
 (def rock "r")
@@ -20,8 +22,9 @@
   (let [guess (sanitize-guess-input (php/readline))]
     (if (php/in_array guess (to-php-array possible-guesses)) guess)))
 
-(defn calculate-winner [@{"computer-guess" computer-guess 
-                          "player-guess" player-guess}]
+(defn calculate-winner
+  "Return the winner based on the computer and player guesses"
+  [@{"computer-guess" computer-guess "player-guess" player-guess}]
   (let [guesses [computer-guess player-guess]]
     (cond
       (= computer-guess player-guess) tie
@@ -31,14 +34,16 @@
       (= guesses [rock paper])        player-wins
       (= guesses [paper scissors])    player-wins
       (= guesses [scissors rock])     player-wins)))
-  
+
 (defn winner-result-text [winner]
   (cond 
     (= winner tie)           "Game tied!"
     (= winner computer-wins) "Computer wins!"
     (= winner player-wins)   "Player wins!"))
 
-(defn play-hand []
+(defn play-hand
+  "The logic game to play one time"
+  []
   (let [computer-guess (rand-nth possible-guesses)
         player-guess   (read-guess)
         winner         (calculate-winner @{"computer-guess" computer-guess
@@ -49,7 +54,12 @@
       (println "> Your entry was invalid")
       (println ">" (winner-result-text winner)))))
 
-(loop []
-  (play-hand)
-  (println)
-  (recur))
+# TODO: Remove when this will be implemented in core:
+# https://github.com/jenshaase/phel-lang/pull/162
+(def argv (php/aget php/$GLOBALS "argv"))
+
+(if (= "play" (php/aget argv 3))
+  (loop []
+    (play-hand)
+    (println)
+    (recur)))

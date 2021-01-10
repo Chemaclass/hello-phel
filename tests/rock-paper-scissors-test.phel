@@ -1,0 +1,33 @@
+(ns hello-phel-tests\rock-paper-scissors-test
+  (:require hello-phel\rock-paper-scissors :refer [
+    rock paper scissors 
+    computer-wins player-wins tie
+    sanitize-guess-input
+    calculate-winner
+    winner-result-text])
+  (:require phel\test :refer [deftest is]))
+
+(deftest test-sanitize-guess-input
+  (is (= nil (sanitize-guess-input "")))
+  (is (= nil (sanitize-guess-input " ")))
+  (is (= rock (sanitize-guess-input "r")))
+  (is (= rock (sanitize-guess-input " ROCK")))
+  (is (= paper (sanitize-guess-input "p")))
+  (is (= paper (sanitize-guess-input " Paper")))
+  (is (= scissors (sanitize-guess-input "s")))
+  (is (= scissors (sanitize-guess-input "scissors"))))
+
+(deftest test-calculate-winner
+  (is (= tie (calculate-winner @{"computer-guess" rock "player-guess" rock})))
+  (is (= computer-wins (calculate-winner @{"computer-guess" paper "player-guess" rock})))
+  (is (= computer-wins (calculate-winner @{"computer-guess" scissors "player-guess" paper})))
+  (is (= computer-wins (calculate-winner @{"computer-guess" rock "player-guess" scissors})))
+  (is (= player-wins (calculate-winner @{"computer-guess" rock "player-guess" paper})))
+  (is (= player-wins (calculate-winner @{"computer-guess" paper "player-guess" scissors})))
+  (is (= player-wins (calculate-winner @{"computer-guess" scissors "player-guess" rock}))))
+
+(deftest test-winner-result-text
+  (is (str-contains? (winner-result-text tie) "tie"))
+  (is (str-contains? (winner-result-text computer-wins) "Computer"))
+  (is (str-contains? (winner-result-text player-wins) "Player"))
+  (is (nil? (winner-result-text "unknown"))))
