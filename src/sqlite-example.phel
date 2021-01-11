@@ -1,0 +1,51 @@
+(ns hello-phel\sqlite-tests
+  (:use \SQLite3))
+
+#(php/var_dump argv)
+#(php/dump argv)
+
+# How to use SQLite3 in Phel
+# Idea from: http://zetcode.com/php/sqlite3/
+
+(def db (php/new SQLite3 "./data/test.db"))
+(def version (php/-> db (querySingle "SELECT SQLITE_VERSION()")))
+(php/dump version)
+
+(defstruct Car [id name price])
+
+(php/-> db (exec "DROP TABLE cars"))
+(php/-> db (exec "CREATE TABLE cars(id INTEGER PRIMARY KEY, name TEXT, price INT)"))
+(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Audi', 52642)"))
+(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Mercedes', 57127)"))
+(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Skoda', 9000)"))
+(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Volvo', 29000)"))
+(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Bentley', 350000)"))
+(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Citroen', 21000)"))
+(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Hummer', 41400)"))
+(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Volkswagen', 21600)"))
+
+(def lastId (php/-> db (lastInsertRowID)))
+(println "The last inserted row Id is " lastId)
+
+(def cars-query (php/-> db (query "SELECT * FROM cars")))
+
+(defn cast-array-to-struct-car [car]
+  (Car (get car "id") (get car "name") (get car "price")))
+
+(defn get-car [query]
+  (let [arr (php/-> query (fetchArray))
+        arr-car (php-array-to-table arr)]
+    (cast-array-to-struct-car arr-car)))
+
+(def cars @[])
+(push cars (get-car cars-query))
+(push cars (get-car cars-query))
+(push cars (get-car cars-query))
+(push cars (get-car cars-query))
+(push cars (get-car cars-query))
+(push cars (get-car cars-query))
+
+(def car-names (map |(get $ :name) cars))
+(php/dump (str car-names))
+
+(println "done")
