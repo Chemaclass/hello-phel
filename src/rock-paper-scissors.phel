@@ -24,7 +24,7 @@
 
 (defn calculate-winner
   "Return the winner based on the computer and player guesses"
-  [@{"computer-guess" computer-guess "player-guess" player-guess}]
+  [@{:computer-guess computer-guess :player-guess player-guess}]
   (let [guesses [computer-guess player-guess]]
     (cond
       (= computer-guess player-guess) tie
@@ -46,17 +46,13 @@
   []
   (let [computer-guess (rand-nth possible-guesses)
         player-guess   (read-guess)
-        winner         (calculate-winner @{"computer-guess" computer-guess
-                                           "player-guess" player-guess})]
+        winner         (calculate-winner @{:computer-guess computer-guess
+                                           :player-guess player-guess})]
     (println "The computer guessed:" computer-guess)
     (println "You guessed:" player-guess)
     (if (= player-guess nil)
       (println "> Your entry was invalid")
       (println ">" (winner-result-text winner)))))
-
-# TODO: Remove when this will be implemented in core:
-# https://github.com/jenshaase/phel-lang/pull/162
-(def argv (php/aget php/$GLOBALS "argv"))
 
 (if (= "play" (php/aget argv 3))
   (loop []
