@@ -18,13 +18,13 @@
   (is (= scissors (sanitize-guess-input "scissors"))))
 
 (deftest test-calculate-winner
-  (is (= tie (calculate-winner @{"computer-guess" rock "player-guess" rock})))
-  (is (= computer-wins (calculate-winner @{"computer-guess" paper "player-guess" rock})))
-  (is (= computer-wins (calculate-winner @{"computer-guess" scissors "player-guess" paper})))
-  (is (= computer-wins (calculate-winner @{"computer-guess" rock "player-guess" scissors})))
-  (is (= player-wins (calculate-winner @{"computer-guess" rock "player-guess" paper})))
-  (is (= player-wins (calculate-winner @{"computer-guess" paper "player-guess" scissors})))
-  (is (= player-wins (calculate-winner @{"computer-guess" scissors "player-guess" rock}))))
+  (is (= tie (calculate-winner @{:computer-guess rock :player-guess rock})))
+  (is (= computer-wins (calculate-winner @{:computer-guess paper :player-guess rock})))
+  (is (= computer-wins (calculate-winner @{:computer-guess scissors :player-guess paper})))
+  (is (= computer-wins (calculate-winner @{:computer-guess rock :player-guess scissors})))
+  (is (= player-wins (calculate-winner @{:computer-guess rock :player-guess paper})))
+  (is (= player-wins (calculate-winner @{:computer-guess paper :player-guess scissors})))
+  (is (= player-wins (calculate-winner @{:computer-guess scissors :player-guess rock}))))
 
 (deftest test-winner-result-text
   (is (str-contains? (winner-result-text tie) "tie"))
