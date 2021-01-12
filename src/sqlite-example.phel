@@ -1,4 +1,4 @@
-(ns hello-phel\sqlite-tests
+(ns hello-phel\sqlite-example
   (:use \SQLite3))
 
 #(php/var_dump argv)
@@ -33,17 +33,15 @@
   (Car (get car "id") (get car "name") (get car "price")))
 
 (defn get-car [query]
-  (let [arr (php/-> query (fetchArray))
-        arr-car (php-array-to-table arr)]
-    (cast-array-to-struct-car arr-car)))
+  (let [row (php/-> query (fetchArray))
+        car-array (php-array-to-table row)]
+    (cast-array-to-struct-car car-array)))
 
-(def cars @[])
-(push cars (get-car cars-query))
-(push cars (get-car cars-query))
-(push cars (get-car cars-query))
-(push cars (get-car cars-query))
-(push cars (get-car cars-query))
-(push cars (get-car cars-query))
+(def cars (loop [car-list @[]]
+  (let [current-car (get-car cars-query)]
+    (if (nil? current-car)
+      car-list
+      (push car-list current-car)))))
 
 (def car-names (map |(get $ :name) cars))
 (php/dump (str car-names))
