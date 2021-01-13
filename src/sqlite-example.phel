@@ -8,8 +8,6 @@
 # Idea from: http://zetcode.com/php/sqlite3/
 
 (def db (php/new SQLite3 "./data/test.db"))
-(def version (php/-> db (querySingle "SELECT SQLITE_VERSION()")))
-(php/dump version)
 
 (defstruct Car [id name price])
 
@@ -24,26 +22,24 @@
 (php/-> db (exec "INSERT INTO cars(name, price) VALUES('Hummer', 41400)"))
 (php/-> db (exec "INSERT INTO cars(name, price) VALUES('Volkswagen', 21600)"))
 
-(def lastId (php/-> db (lastInsertRowID)))
-(println "The last inserted row Id is " lastId)
-
 (def cars-query (php/-> db (query "SELECT * FROM cars")))
 
 (defn cast-array-to-struct-car [car]
   (Car (get car "id") (get car "name") (get car "price")))
 
-(defn get-car [query]
-  (let [row (php/-> query (fetchArray))
-        car-array (php-array-to-table row)]
-    (cast-array-to-struct-car car-array)))
+(def cars
+  (loop [_cars @[]
+         row (php/-> cars-query (fetchArray))]
+    (if row
+      (recur
+        (push _cars (cast-array-to-struct-car (php-array-to-table row)))
+        (php/-> cars-query (fetchArray)))
+      _cars)))
 
-(def cars (loop [car-list @[]]
-  (let [current-car (get-car cars-query)]
-    (if (nil? current-car)
-      car-list
-      (push car-list current-car)))))
+# Printing only the car names
+(println (str (map |(get $ :name) cars)))
+# Output: @["Audi" "Mercedes" "Skoda" "Volvo" "Bentley" "Citroen" "Hummer" "Volkswagen"]
 
-(def car-names (map |(get $ :name) cars))
-(php/dump (str car-names))
-
-(println "done")
+# Printing the first two (struct) cars from the list as string
+(println (str (map |(str $) (take 2 cars))))
+# Output: @["@{:id 1 :name \"Audi\" :price 52642}" "@{:id 2 :name \"Mercedes\" :price 57127}"]
