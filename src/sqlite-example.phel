@@ -26,13 +26,13 @@
   (Car (get car "id") (get car "name") (get car "price")))
 
 (defn find-all-cars [db]
-  (let [cars-query (php/-> db (query "SELECT * FROM cars"))] 
+  (let [cars-query (php/-> db (query "SELECT * FROM cars"))]
     (loop [cars @[]
            row (php/-> cars-query (fetchArray))]
       (if row
         (recur
-          (push cars (cast-array-to-struct-car (php-array-to-table row)))
-          (php/-> cars-query (fetchArray)))
+         (push cars (cast-array-to-struct-car (php-array-to-table row)))
+         (php/-> cars-query (fetchArray)))
         cars))))
 
 (def cars (find-all-cars db))

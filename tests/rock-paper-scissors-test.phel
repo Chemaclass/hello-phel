@@ -1,15 +1,15 @@
 (ns hello-phel-tests\rock-paper-scissors-test
-  (:require hello-phel\rock-paper-scissors :refer [
-    rock paper scissors 
-    computer-wins player-wins tie
-    sanitize-guess-input
-    calculate-winner
-    winner-result-text])
+  (:require hello-phel\rock-paper-scissors
+            :refer [rock paper scissors
+                    computer-wins player-wins tie
+                    sanitize-guess-input
+                    calculate-winner
+                    winner-result-text])
   (:require phel\test :refer [deftest is]))
 
 (deftest test-sanitize-guess-input
-  (is (= nil (sanitize-guess-input "")))
-  (is (= nil (sanitize-guess-input " ")))
+  (is (nil? (sanitize-guess-input "")))
+  (is (nil? (sanitize-guess-input " ")))
   (is (= rock (sanitize-guess-input "r")))
   (is (= rock (sanitize-guess-input " ROCK")))
   (is (= paper (sanitize-guess-input "p")))

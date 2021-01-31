@@ -4,4 +4,4 @@
 (println "Easy Hello, World!")
 
 (println
-  (html [:span @{:class "Fancy"} "Hello, World!"]))
+ (html [:span @{:class "Fancy"} "Hello, World!"]))

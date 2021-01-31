@@ -8,8 +8,11 @@
   ],
   "require": {
     "ext-readline": "*",
-    "phel/phel": "dev-master",
-    "symfony/var-dumper": "5.x-dev"
+    "phel-lang/phel-lang": "dev-master"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "5.x-dev",
+    "roave/security-advisories": "dev-master"
   },
   "extra": {
     "phel": {

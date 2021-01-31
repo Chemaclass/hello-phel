@@ -36,7 +36,7 @@
       (= guesses [scissors rock])     player-wins)))
 
 (defn winner-result-text [winner]
-  (cond 
+  (cond
     (= winner tie)           "Game tied!"
     (= winner computer-wins) "Computer wins!"
     (= winner player-wins)   "Player wins!"))
