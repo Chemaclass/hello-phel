@@ -3,3 +3,4 @@ vendor/
 data/*
 .phel-repl-history
 local-test.phel
+*.cache

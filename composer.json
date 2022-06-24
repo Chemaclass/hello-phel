@@ -1,31 +1,26 @@
 {
-  "name": "chemaclass/hello-phel",
-  "authors": [
-    {
-      "name": "Jose Maria Valera Reales",
-      "email": "chemaclass@outlook.es"
-    }
-  ],
-  "require": {
-    "ext-readline": "*",
-    "phel-lang/phel-lang": "dev-master"
-  },
-  "require-dev": {
-    "symfony/var-dumper": "5.x-dev",
-    "roave/security-advisories": "dev-master"
-  },
-  "extra": {
-    "phel": {
-      "loader": {
-        "hello-phel\\": "src/"
-      },
-      "loader-dev": {
-        "hello-phel-tests\\": "tests/"
-      },
-      "tests": [
-          "tests/"
-      ]
-    }
-  },
-  "minimum-stability": "dev"
+    "name": "chemaclass/hello-phel",
+    "authors": [
+        {
+            "name": "Jose Maria Valera Reales",
+            "email": "chemaclass@outlook.es"
+        }
+    ],
+    "require": {
+        "ext-readline": "*",
+        "phel-lang/phel-lang": "master"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "symfony/var-dumper": "5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhelGenerated\\": "src/PhelGenerated"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phel test"
+    },
+    "minimum-stability": "dev"
 }
