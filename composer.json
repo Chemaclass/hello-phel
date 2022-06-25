@@ -8,7 +8,7 @@
     ],
     "require": {
         "ext-readline": "*",
-        "phel-lang/phel-lang": "master"
+        "phel-lang/phel-lang": "dev-master"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

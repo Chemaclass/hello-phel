@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4a15feaa59ca79b0ab31601eabbc9af",
+    "content-hash": "d08d655197c9f9911a59078fea60b151",
     "packages": [
         {
             "name": "gacela-project/gacela",
-            "version": "0.22.0",
+            "version": "0.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gacela-project/gacela.git",
-                "reference": "528ba03f7e2e070100e5a7b7a0afb1a6bad70887"
+                "reference": "65c0fbb9a70c3160a4e46dd10f4a2071129341b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gacela-project/gacela/zipball/528ba03f7e2e070100e5a7b7a0afb1a6bad70887",
-                "reference": "528ba03f7e2e070100e5a7b7a0afb1a6bad70887",
+                "url": "https://api.github.com/repos/gacela-project/gacela/zipball/65c0fbb9a70c3160a4e46dd10f4a2071129341b8",
+                "reference": "65c0fbb9a70c3160a4e46dd10f4a2071129341b8",
                 "shasum": ""
             },
             "require": {
@@ -30,14 +30,18 @@
                 "phpmetrics/phpmetrics": "^2.8",
                 "phpstan/phpstan": "^1.7",
                 "phpunit/phpunit": "^9.5",
+                "symfony/console": "^5.4",
                 "symfony/var-dumper": "^5.4",
                 "vimeo/psalm": "^4.23"
             },
             "suggest": {
-                "gacela-project/gacela-cli": "Gacela cli util",
                 "gacela-project/gacela-env-config-reader": "Allows to read .env config files",
-                "gacela-project/gacela-yaml-config-reader": "Allows to read yml/yaml config files"
+                "gacela-project/gacela-yaml-config-reader": "Allows to read yml/yaml config files",
+                "symfony/console": "Allows to use vendor/bin/gacela script"
             },
+            "bin": [
+                "gacela"
+            ],
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -67,9 +71,15 @@
             ],
             "support": {
                 "issues": "https://github.com/gacela-project/gacela/issues",
-                "source": "https://github.com/gacela-project/gacela/tree/0.22.0"
+                "source": "https://github.com/gacela-project/gacela/tree/0.23.1"
             },
-            "time": "2022-06-10T17:06:52+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/Chemaclass",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-06-25T09:32:09+00:00"
         },
         {
             "name": "phel-lang/phel-lang",
@@ -77,17 +87,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phel-lang/phel-lang.git",
-                "reference": "8f20c79e85c9f3e0eccfe0d361ffba56a0a28f3d"
+                "reference": "452fdd9bb2a0325e5e6707d79110b7683be0fc9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phel-lang/phel-lang/zipball/8f20c79e85c9f3e0eccfe0d361ffba56a0a28f3d",
-                "reference": "8f20c79e85c9f3e0eccfe0d361ffba56a0a28f3d",
+                "url": "https://api.github.com/repos/phel-lang/phel-lang/zipball/452fdd9bb2a0325e5e6707d79110b7683be0fc9f",
+                "reference": "452fdd9bb2a0325e5e6707d79110b7683be0fc9f",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "gacela-project/gacela": "^0.22",
+                "gacela-project/gacela": "^0.23",
                 "php": ">=8.0",
                 "phpunit/php-timer": "^5.0",
                 "symfony/console": "^5.4"
@@ -134,7 +144,7 @@
                 "issues": "https://github.com/phel-lang/phel-lang/issues",
                 "source": "https://github.com/phel-lang/phel-lang/tree/master"
             },
-            "time": "2022-06-20T20:27:01+00:00"
+            "time": "2022-06-25T10:16:34+00:00"
         },
         {
             "name": "phpunit/php-timer",
@@ -1006,12 +1016,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "d3edc75baf9f1d4f94879764dda2e1ac33499529"
+                "reference": "572c82297cb275fd1bb8fdaec39f7b7cbc52f106"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/d3edc75baf9f1d4f94879764dda2e1ac33499529",
-                "reference": "d3edc75baf9f1d4f94879764dda2e1ac33499529",
+                "url": "https://api.github.com/repos/symfony/string/zipball/572c82297cb275fd1bb8fdaec39f7b7cbc52f106",
+                "reference": "572c82297cb275fd1bb8fdaec39f7b7cbc52f106",
                 "shasum": ""
             },
             "require": {
@@ -1067,7 +1077,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v6.1.0"
+                "source": "https://github.com/symfony/string/tree/6.2"
             },
             "funding": [
                 {
@@ -1083,7 +1093,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-22T08:18:23+00:00"
+            "time": "2022-06-24T12:33:15+00:00"
         }
     ],
     "packages-dev": [
@@ -1093,12 +1103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a66635bf19583447f296db28180762367690ac5a"
+                "reference": "880f953435f266cf634bb81fa8888e66fa7814f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a66635bf19583447f296db28180762367690ac5a",
-                "reference": "a66635bf19583447f296db28180762367690ac5a",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/880f953435f266cf634bb81fa8888e66fa7814f6",
+                "reference": "880f953435f266cf634bb81fa8888e66fa7814f6",
                 "shasum": ""
             },
             "conflict": {
@@ -1366,6 +1376,7 @@
                 "pocketmine/pocketmine-mp": ">= 4.0.0-BETA5, < 4.4.2|<4.2.10",
                 "pressbooks/pressbooks": "<5.18",
                 "prestashop/autoupgrade": ">=4,<4.10.1",
+                "prestashop/blockwishlist": ">=2,<2.1.1",
                 "prestashop/contactform": ">1.0.1,<4.3",
                 "prestashop/gamification": "<2.3.2",
                 "prestashop/prestashop": ">=1.7,<=1.7.8.2",
@@ -1587,7 +1598,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-23T07:04:20+00:00"
+            "time": "2022-06-25T08:04:47+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -1683,6 +1694,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "phel-lang/phel-lang": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
