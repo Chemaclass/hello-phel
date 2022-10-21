@@ -54,7 +54,7 @@
       (println "> Your entry was invalid")
       (println ">" (winner-result-text winner)))))
 
-(if (= "play" (php/aget argv 3))
+(when-not *compile-mode*
   (loop []
     (play-hand)
     (println)

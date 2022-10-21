@@ -39,7 +39,7 @@
 
 (println "Car names:" (str (map |(get $ :name) cars))) # @["Audi" "Mercedes" "Skoda" "Volvo" "Bentley" "Citroen" "Hummer" "Volkswagen"]
 
-(println "First two cars:" (str (map |(str $) (take 2 cars)))) # @["@{:id 1 :name \"Audi\" :price 52642}" "@{:id 2 :name \"Mercedes\" :price 57127}"]
+(println "First two cars:" (str (map |(str $) (take 2 cars)))) # @["{:id 1 :name \"Audi\" :price 52642}" "{:id 2 :name \"Mercedes\" :price 57127}"]
 
 (defn find-one-car-by-id [db id]
   (let [stmt (php/-> db (prepare "SELECT * FROM cars WHERE id = :id"))]
@@ -47,12 +47,13 @@
     (let [res (php/-> stmt (execute))]
       (cast-array-to-struct-car (php/-> res (fetchArray))))))
 
-(println "One car by id:" (str (find-one-car-by-id db 3))) # @{:id 3 :name "Skoda" :price 9000}
+(println "One car by id:" (str (find-one-car-by-id db 3))) # {:id 3 :name "Skoda" :price 9000}
 
 (defn print-nice-cars-table [cars]
   (printf " %-10s %s\n" "NAME" "PRICE")
   (for [car :in cars]
     (printf " %-10s %s\n" (get car :name) (get car :price))))
 
-(println "List with all cars")
-(print-nice-cars-table cars)
+(when-not *compile-mode*
+  (println "List with all cars")
+  (print-nice-cars-table cars))

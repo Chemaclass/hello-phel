@@ -15,7 +15,8 @@
               (println i))))
         (recur (inc i))))))
 
-(fizz-buzz-1 30)
+(when-not *compile-mode*
+  (fizz-buzz-1 30))
 
 (println "================================")
 
@@ -33,4 +34,5 @@
           :else               (println i))
         (recur (inc i))))))
 
-(fizz-buzz-2 30)
+(when-not *compile-mode*
+  (fizz-buzz-2 30))
