@@ -1,11 +1,12 @@
-(ns hello-phel-tests\rock-paper-scissors-test
-  (:require hello-phel\rock-paper-scissors
+(ns hello-phel-tests.rock-paper-scissors-test
+  (:require hello-phel.rock-paper-scissors
             :refer [rock paper scissors
                     computer-wins player-wins tie
                     sanitize-guess-input
                     calculate-winner
                     winner-result-text])
-  (:require phel\test :refer [deftest is]))
+  (:require phel.string :refer [includes?])
+  (:require phel.test :refer [deftest is]))
 
 (deftest test-sanitize-guess-input
   (is (nil? (sanitize-guess-input "")))
@@ -27,7 +28,7 @@
   (is (= player-wins (calculate-winner {:computer-guess scissors :player-guess rock}))))
 
 (deftest test-winner-result-text
-  (is (str-contains? (winner-result-text tie) "tie"))
-  (is (str-contains? (winner-result-text computer-wins) "Computer"))
-  (is (str-contains? (winner-result-text player-wins) "Player"))
+  (is (includes? (winner-result-text tie) "tie"))
+  (is (includes? (winner-result-text computer-wins) "Computer"))
+  (is (includes? (winner-result-text player-wins) "Player"))
   (is (nil? (winner-result-text "unknown"))))
