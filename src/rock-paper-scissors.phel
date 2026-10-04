@@ -1,6 +1,6 @@
-# Usage: vendor/bin/phel run src/rock-paper-scissors.phel play
+;; Usage: vendor/bin/phel run src/rock-paper-scissors.phel play
 
-(ns hello-phel\rock-paper-scissors)
+(ns hello-phel.rock-paper-scissors)
 
 (def rock "r")
 (def paper "p")
@@ -20,11 +20,11 @@
   (println "Play your hand: (r)ock, (p)aper, (s)cissors")
   (print "# ")
   (let [guess (sanitize-guess-input (php/readline))]
-    (if (php/in_array guess (to-php-array possible-guesses)) guess)))
+    (if (php/in_array guess (to-array possible-guesses)) guess)))
 
 (defn calculate-winner
   "Return the winner based on the computer and player guesses"
-  [{:computer-guess computer-guess :player-guess player-guess}]
+  [{:keys [computer-guess player-guess]}]
   (let [guesses [computer-guess player-guess]]
     (cond
       (= computer-guess player-guess) tie
@@ -47,14 +47,14 @@
   (let [computer-guess (rand-nth possible-guesses)
         player-guess   (read-guess)
         winner         (calculate-winner {:computer-guess computer-guess
-                                           :player-guess player-guess})]
+                                          :player-guess player-guess})]
     (println "The computer guessed:" computer-guess)
     (println "You guessed:" player-guess)
     (if (nil? player-guess)
       (println "> Your entry was invalid")
       (println ">" (winner-result-text winner)))))
 
-(when-not *compile-mode*
+(when (= "play" (first *argv*))
   (loop []
     (play-hand)
     (println)

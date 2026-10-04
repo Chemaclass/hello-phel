@@ -1,10 +1,10 @@
-(ns hello-phel\fizz-buzz)
+(ns hello-phel.fizz-buzz)
 
 (defn fizz-buzz-1
   "Using normal if conditionals"
-  [max]
+  [limit]
   (loop [i 1]
-    (if (<= i max)
+    (if (<= i limit)
       (do
         (if (and (= (% i 3) 0) (= (% i 5) 0))
           (println "FizzBuzz")
@@ -15,16 +15,16 @@
               (println i))))
         (recur (inc i))))))
 
-(when-not *compile-mode*
+(when-not *build-mode*
   (fizz-buzz-1 30))
 
 (println "================================")
 
 (defn fizz-buzz-2
   "Using cond allow us to make conditional pairs. Similar as the switch-case"
-  [max]
+  [limit]
   (loop [i 1]
-    (if (<= i max)
+    (if (<= i limit)
       (do
         (cond
           (and (= (% i 3) 0)
@@ -34,5 +34,5 @@
           :else               (println i))
         (recur (inc i))))))
 
-(when-not *compile-mode*
+(when-not *build-mode*
   (fizz-buzz-2 30))

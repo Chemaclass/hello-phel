@@ -1,59 +1,55 @@
-(ns hello-phel\sqlite-example
-  (:use \SQLite3))
+(ns hello-phel.sqlite-example)
 
-#(php/var_dump argv)
-#(php/dump argv)
+;; How to use SQLite3 in Phel
+;; Idea from: http://zetcode.com/php/sqlite3/
 
-# How to use SQLite3 in Phel
-# Idea from: http://zetcode.com/php/sqlite3/
-
-(def db (php/new SQLite3 "./data/test.db"))
+(def db (SQLite3. "./data/test.db"))
 
 (defstruct Car [id name price])
 
-(php/-> db (exec "DROP TABLE cars"))
-(php/-> db (exec "CREATE TABLE cars(id INTEGER PRIMARY KEY, name TEXT, price INT)"))
-(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Audi', 52642)"))
-(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Mercedes', 57127)"))
-(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Skoda', 9000)"))
-(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Volvo', 29000)"))
-(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Bentley', 350000)"))
-(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Citroen', 21000)"))
-(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Hummer', 41400)"))
-(php/-> db (exec "INSERT INTO cars(name, price) VALUES('Volkswagen', 21600)"))
+(.exec db "DROP TABLE IF EXISTS cars")
+(.exec db "CREATE TABLE cars(id INTEGER PRIMARY KEY, name TEXT, price INT)")
+(.exec db "INSERT INTO cars(name, price) VALUES('Audi', 52642)")
+(.exec db "INSERT INTO cars(name, price) VALUES('Mercedes', 57127)")
+(.exec db "INSERT INTO cars(name, price) VALUES('Skoda', 9000)")
+(.exec db "INSERT INTO cars(name, price) VALUES('Volvo', 29000)")
+(.exec db "INSERT INTO cars(name, price) VALUES('Bentley', 350000)")
+(.exec db "INSERT INTO cars(name, price) VALUES('Citroen', 21000)")
+(.exec db "INSERT INTO cars(name, price) VALUES('Hummer', 41400)")
+(.exec db "INSERT INTO cars(name, price) VALUES('Volkswagen', 21600)")
 
 (defn cast-array-to-struct-car [car]
   (Car (get car "id") (get car "name") (get car "price")))
 
 (defn find-all-cars [db]
-  (let [cars-query (php/-> db (query "SELECT * FROM cars"))]
-    (loop [cars @[]
-           row (php/-> cars-query (fetchArray))]
+  (let [cars-query (.query db "SELECT * FROM cars")]
+    (loop [cars []
+           row  (.fetchArray cars-query)]
       (if row
         (recur
-         (push cars (cast-array-to-struct-car (php-array-to-table row)))
-         (php/-> cars-query (fetchArray)))
+         (conj cars (cast-array-to-struct-car (php-array-to-map row)))
+         (.fetchArray cars-query))
         cars))))
 
 (def cars (find-all-cars db))
 
-(println "Car names:" (str (map |(get $ :name) cars))) # @["Audi" "Mercedes" "Skoda" "Volvo" "Bentley" "Citroen" "Hummer" "Volkswagen"]
+(println "Car names:" (str (map #(get % :name) cars))) ; ("Audi" "Mercedes" "Skoda" "Volvo" "Bentley" "Citroen" "Hummer" "Volkswagen")
 
-(println "First two cars:" (str (map |(str $) (take 2 cars)))) # @["{:id 1 :name \"Audi\" :price 52642}" "{:id 2 :name \"Mercedes\" :price 57127}"]
+(println "First two cars:" (str (map #(str %) (take 2 cars)))) ; ("(hello_phel.sqlite_example.Car 1 \"Audi\" 52642)" "(hello_phel.sqlite_example.Car 2 \"Mercedes\" 57127)")
 
 (defn find-one-car-by-id [db id]
-  (let [stmt (php/-> db (prepare "SELECT * FROM cars WHERE id = :id"))]
-    (php/-> stmt (bindValue ":id" id))
-    (let [res (php/-> stmt (execute))]
-      (cast-array-to-struct-car (php/-> res (fetchArray))))))
+  (let [stmt (.prepare db "SELECT * FROM cars WHERE id = :id")]
+    (.bindValue stmt ":id" id)
+    (let [res (.execute stmt)]
+      (cast-array-to-struct-car (.fetchArray res)))))
 
-(println "One car by id:" (str (find-one-car-by-id db 3))) # {:id 3 :name "Skoda" :price 9000}
+(println "One car by id:" (str (find-one-car-by-id db 3))) ; (hello_phel.sqlite_example.Car 3 "Skoda" 9000)
 
 (defn print-nice-cars-table [cars]
   (printf " %-10s %s\n" "NAME" "PRICE")
-  (for [car :in cars]
+  (doseq [car cars]
     (printf " %-10s %s\n" (get car :name) (get car :price))))
 
-(when-not *compile-mode*
+(when-not *build-mode*
   (println "List with all cars")
   (print-nice-cars-table cars))
