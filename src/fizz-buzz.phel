@@ -2,9 +2,9 @@
 
 (defn fizz-buzz-1
   "Using normal if conditionals"
-  [max]
+  [limit]
   (loop [i 1]
-    (if (<= i max)
+    (if (<= i limit)
       (do
         (if (and (= (% i 3) 0) (= (% i 5) 0))
           (println "FizzBuzz")
@@ -22,9 +22,9 @@
 
 (defn fizz-buzz-2
   "Using cond allow us to make conditional pairs. Similar as the switch-case"
-  [max]
+  [limit]
   (loop [i 1]
-    (if (<= i max)
+    (if (<= i limit)
       (do
         (cond
           (and (= (% i 3) 0)
